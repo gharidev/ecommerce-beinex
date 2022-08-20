@@ -7,9 +7,10 @@
 
 {% block content %}
 <div class="h4 text-center mb-4">Products</div>
-<div class="row">
-    <div class="col-12">
+<div class="row mb-3">
+    <div class="col-12 card card-body">
         <form action="" method="get">
+            <h6>Filter products</h6>
             <div class="row">
                 {% csrf_token %}
                 {% for field in filter.form %}

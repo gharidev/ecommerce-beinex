@@ -6,6 +6,7 @@ from core.models import Product, Category
 from manager.forms import ProductForm, CategoryForm, SubCategoryFormSet
 
 class ProductCreateView(ManagerRequiredMixin, CreateView):
+    """View for creating a product."""
     template_name = 'manager/form.html'
     form_class = ProductForm
     extra_context = {'title': 'New product'}
@@ -14,6 +15,7 @@ class ProductCreateView(ManagerRequiredMixin, CreateView):
         return reverse('manager:product-detail', kwargs={'pk':self.object.pk})
 
 class ProductUpdateView(ManagerRequiredMixin, UpdateView):
+    """View for updating a product."""
     model = Product
     template_name = 'manager/form.html'
     form_class = ProductForm
@@ -23,22 +25,26 @@ class ProductUpdateView(ManagerRequiredMixin, UpdateView):
         return reverse('manager:product-detail', kwargs={'pk':self.object.pk})
 
 class ProductListView(ManagerRequiredMixin, ListView):
+    """View for listing products with pagination."""
     model = Product
     paginate_by = 10
     context_object_name = 'products'
     template_name = 'manager/product-list.html'
 
 class ProductDetailView(ManagerRequiredMixin, DetailView):
+    """Detailed view of a product."""
     model = Product
     template_name = 'manager/product-detail.html'
 
 class ProductDeleteView(ManagerRequiredMixin, DeleteView):
+    """View for deleting a product."""
     model = Product
     template_name = 'manager/product-delete.html'
     success_url = reverse_lazy('manager:product-list')
     context_object_name = 'product'
 
 class CategoryCreateView(ManagerRequiredMixin, CreateView):
+    """View for creating a category with inlineformset factory to sub category."""
     model = Category
     form_class = CategoryForm
     template_name = 'manager/category-form.html'
@@ -67,6 +73,7 @@ class CategoryCreateView(ManagerRequiredMixin, CreateView):
         return reverse('manager:category-list')
     
 class CategoryUpdateView(ManagerRequiredMixin, UpdateView):
+    """View for updating a category with inlineformset factory to sub category."""
     model = Category
     form_class = CategoryForm
     template_name = 'manager/category-form.html'
@@ -92,11 +99,13 @@ class CategoryUpdateView(ManagerRequiredMixin, UpdateView):
         return reverse('manager:category-list')
 
 class CategoryListView(ManagerRequiredMixin, ListView):
+    """View for listing categories."""
     template_name = 'manager/category-list.html'
     model = Category
     context_object_name = 'categories'
 
 class CategoryDeleteView(ManagerRequiredMixin, DeleteView):
+    """View for deleting a category."""
     model = Category
     template_name = 'manager/category-delete.html'
     success_url = reverse_lazy('manager:category-list')
