@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        {% if 'manager' in request.resolver_match.app_names %}
+        <a class="navbar-brand" href="{% url 'manager:product-list' %}">Ecommerce Administration</a>
+        {% else %}
+        <a class="navbar-brand" href="{% url 'core:product-list' %}">Ecommerce</a>
+        {% endif %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    {% url 'core:product-list' as product_list %}
+                    <a class="nav-link {% if request.path == product_list %}active{%endif%}" aria-current="page"
+                        href="{{ product_list }}">Products</a>
+                </li>
+                {% if not user.is_authenticated %}
+                {% url 'core:login' as login %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == login %}active{% endif %}" aria-current="page"
+                        href="{{login}}">Login</a>
+                </li>
+                {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle btn btn-primary text-white rounded-pill" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img src="https://avatars.dicebear.com/api/initials/{{user.get_full_name}}.svg" alt=""
+                            class="navbar-avatar rounded-circle me-1"><small>{{ user.get_full_name }}</small>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'core:logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

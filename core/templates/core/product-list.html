@@ -1,0 +1,73 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block extra_css %}
+{{ filter.form.media.css }}
+{% endblock %}
+
+{% block content %}
+<div class="h4 text-center mb-4">Products</div>
+<div class="row">
+    <div class="col-12">
+        <form action="" method="get">
+            <div class="row">
+                {% csrf_token %}
+                {% for field in filter.form %}
+                <div class="col-12 col-sm-6">
+                    {{field|as_crispy_field}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-end">
+                <input type="submit" value="Filter" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row justify-content-center">
+    {% for product in object_list %}
+    <div class="col-6 col-sm-4 col-md-3">
+        <div class="card card-body">
+            <div class="product-list-img-container mb-2" style="background-image: url('{{ product.image.url }}');">
+            </div>
+            <h6><a href="{% url 'core:product-detail' pk=product.pk %}">{{product.name}}</a></h6>
+            <p class="fw-bold mb-1">₹{{ product.price }}</p>
+            <div class="text-muted">
+                <small><span class="fw-bold">Categories:</span> {{ product.categories_str }}</small><br>
+                <small><span class="fw-bold">Sub categories:</span> {{ product.subcategories_str }}</small>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center">No products to show.</p>
+    {% endfor %}
+</div>
+<ul class="pagination justify-content-center mt-3">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a>
+    </li>
+    {% endif %}
+    {% for page_number in page_obj.paginator.page_range %}
+    {% if page_obj.number == page_number %}
+    <li class="page-item disabled">
+        <a class="page-link">{{ page_number }}</a>
+    </li>
+    {% else %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <li class="page-item">
+        <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a>
+    </li>
+    </li>
+    {% endif %}
+</ul>
+{% endblock %}
+
+{% block extra_js %}
+{{ filter.form.media.js }}
+{% endblock %}

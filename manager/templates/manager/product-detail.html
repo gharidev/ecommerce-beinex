@@ -1,0 +1,28 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card card-body">
+            <div style="max-height: 200px;" class="text-center">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded mb-2"
+                    style="max-height: 200px;">
+            </div>
+            <h5>{{ product.name }}</h5>
+            <h6>₹{{ product.price }}</h6>
+            <p class="text-muted">{{ product.description }}</p>
+            <small>
+                <p class="mb-1">Categories: {{ product.categories_str }}</p>
+                <p>Sub categories: {{ product.subcategories_str }}</p>
+            </small>
+            {% if not viewer %}
+            <div class="d-flex">
+                <a class="btn btn-primary ms-auto" href="{% url 'manager:product-update' pk=product.pk %}">Edit
+                    product</a>
+                <a class="btn btn-danger ms-2" href="{% url 'manager:product-delete' pk=product.pk %}">Delete</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title m-0">Delete Category</h5>
+            </div>
+            <div class="card-body">
+                Are you sure you want to delete category {{category.name}}?
+            </div>
+            <div class="card-footer">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-success" onclick="window.history.back();" type="button">No</button>
+                    <input type="submit" class="btn btn-danger" value="Yes">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
