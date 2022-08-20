@@ -3,6 +3,7 @@ from core.models import User
 
 
 class ManagerRequiredMixin(AccessMixin):
+    """Verify that the current user is authenticated and is a manager."""
     
     permission_denied_message = 'You do not have enough privileges to access this page.'
     
