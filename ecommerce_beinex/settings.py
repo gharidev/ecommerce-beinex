@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import django_on_heroku
 import os
 from django.urls import reverse_lazy
 
@@ -141,3 +142,5 @@ MEDIA_URL = '/media/'
 
 LOGIN_URL = reverse_lazy('core:login')
 LOGIN_REDIRECT_URL = reverse_lazy('core:product-list')
+
+django_on_heroku.settings(locals())
