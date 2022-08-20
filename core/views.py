@@ -29,3 +29,4 @@ class ProductDetailView(DetailView):
     template_name = 'manager/product-detail.html'
     context_object_name = 'product'
     extra_context = {'viewer': True}
+    
