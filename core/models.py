@@ -57,8 +57,13 @@ class Customer(User):
 # PRODUCT & CATEGORY MODEL
 class Product(models.Model):
     """Product model."""
+
+    PLACEHOLDER_URL = 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
+
     name = models.CharField(max_length=255)
-    image = models.ImageField(default='placeholder-image.webp', blank=True, upload_to='media/images')
+    # image = models.ImageField(default='placeholder-image.webp', blank=True, upload_to='media/images')
+    # Using URLField as Heorku has an ephemeral filesystem
+    image = models.URLField(default=PLACEHOLDER_URL, blank=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     categories = models.ManyToManyField('Category', blank=True)
