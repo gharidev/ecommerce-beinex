@@ -29,7 +29,7 @@
     {% for product in object_list %}
     <div class="col-6 col-sm-4 col-md-3">
         <div class="card card-body">
-            <div class="product-list-img-container mb-2" style="background-image: url('{{ product.image.url }}');">
+            <div class="product-list-img-container mb-2" style="background-image: url('{{ product.image }}');">
             </div>
             <h6><a href="{% url 'core:product-detail' pk=product.pk %}">{{product.name}}</a></h6>
             <p class="fw-bold mb-1">₹{{ product.price }}</p>
