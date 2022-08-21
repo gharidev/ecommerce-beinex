@@ -4,7 +4,6 @@ from django.db.models.query_utils import Q
 
 from core.models import Product, Category, SubCategory
 from django_select2.forms import Select2MultipleWidget
-from manager.forms import CategoriesWidget
 
 class ProductFilter(django_filters.FilterSet):
     """
