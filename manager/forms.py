@@ -3,6 +3,7 @@ from django_select2 import forms as s2forms
 
 from core.models import Product, Category, SubCategory
 
+<<<<<<< HEAD
 class CategoriesWidget(s2forms.ModelSelect2MultipleWidget):
     """Select 2 widget for categories."""
     search_fields = [
@@ -15,6 +16,8 @@ class SubCategoriesWidget(s2forms.ModelSelect2MultipleWidget):
         "name__icontains",
     ]
 
+=======
+>>>>>>> development
 class ProductForm(forms.ModelForm):
     """Model form for the model `Product`."""
 
@@ -22,8 +25,8 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ['name', 'image', 'description', 'price', 'categories', 'subcategories']
         widgets = {
-            'categories': CategoriesWidget,
-            'subcategories': SubCategoriesWidget,
+            'categories': s2forms.Select2MultipleWidget,
+            'subcategories': s2forms.Select2MultipleWidget,
         }
 
 class CategoryForm(forms.ModelForm):
